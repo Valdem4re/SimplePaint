@@ -28,7 +28,7 @@ void DrawingDialog::on_spinBoxR_valueChanged(int arg1)
 
 void DrawingDialog::on_spinBoxB_valueChanged(int arg1)
 {
-    m_Green = arg1;
+    m_Blue = arg1;
     ui->sliderB->setValue(m_Blue);
 
 }
@@ -70,5 +70,31 @@ void DrawingDialog::on_sliderB_valueChanged(int value3)
 {
     m_Blue = value3;
     ui->spinBoxB->setValue(value3);
+}
+
+
+
+void DrawingDialog::on_pushBtnEraser_clicked(bool checked)
+{
+    static int R = ui->spinBoxR->value();
+    static int G = ui->spinBoxG->value();
+    static int B = ui->spinBoxB->value();
+    if(checked){
+        ui->spinBoxR->setValue(255);
+        ui->spinBoxG->setValue(255);
+        ui->spinBoxB->setValue(255);
+        QColor color = getColor();
+        emit setupSettings(color, m_penSize);
+        ui->pushBtnEraser->setChecked(true);
+
+    }
+    else{
+        ui->spinBoxR->setValue(R);
+        ui->spinBoxG->setValue(G);
+        ui->spinBoxB->setValue(B);
+        QColor color = getColor();
+        emit setupSettings(color, m_penSize);
+        ui->pushBtnEraser->setChecked(false);
+    }
 }
 

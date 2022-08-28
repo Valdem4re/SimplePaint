@@ -34,6 +34,8 @@ private slots:
 
     void on_sliderB_valueChanged(int value3);
 
+    void on_pushBtnEraser_clicked(bool checked);
+
 private:
     Ui::DrawingDialog *ui;
     int m_Red, m_Green, m_Blue;
