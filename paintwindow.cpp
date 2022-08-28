@@ -16,61 +16,61 @@ PaintWindow::PaintWindow(QWidget *parent) :
     ui(new Ui::PaintWindow)
 {
     ui->setupUi(this);
-    drawingDialog = new DrawingDialog(this);
+    m_pDrawingDialog = new DrawingDialog(this);
 
     this->setCursor(QCursor(QPixmap(":/images/textures/pencil.png").scaled(32,32,Qt::KeepAspectRatio)));
 
-    connect(drawingDialog,SIGNAL(setupSettings(QColor,int)),this,SLOT(setupSettings(QColor,int)));
+    connect(m_pDrawingDialog,SIGNAL(setupSettings(QColor,int)),this,SLOT(setupSettings(QColor,int)));
 
-    linePen.setColor(QColor(0,0,0));
-    linePen.setWidth(1);
-    Drawing = false;
+    m_linePen.setColor(QColor(0,0,0));
+    m_linePen.setWidth(1);
+    m_bDrawing = false;
 }
 
 PaintWindow::~PaintWindow()
 {
-    delete ui;  delete drawingDialog;
+    delete ui;  delete m_pDrawingDialog;
 }
 
-void PaintWindow::setupSettings(QColor color, int size)
+void PaintWindow::setupSettings(QColor _color, int _size)
 {
-    linePen.setColor(color);
-    linePen.setWidth(size);
+    m_linePen.setColor(_color);
+    m_linePen.setWidth(_size);
 }
 
 void PaintWindow::mousePressEvent(QMouseEvent* event)
-{ Drawing = true;
-  P0 = event->pos(); P1=P0;
+{ m_bDrawing = true;
+  m_P0 = event->pos(); m_P1 = m_P0;
   TPolyline polyline;
-  polyline.pen = linePen;
-  curve<< polyline;
+  polyline.pen = m_linePen;
+  m_curve<< polyline;
 }
 
 void PaintWindow::mouseMoveEvent(QMouseEvent * event)
-{  if (!Drawing) return;
-    P0 = P1; P1 = event->pos();
-    curve.last().segments << qMakePair(P0,P1);
+{  if (!m_bDrawing) return;
+    m_P0 = m_P1; m_P1 = event->pos();
+    m_curve.last().segments << qMakePair(m_P0,m_P1);
     update();
 }
 
 void PaintWindow::mouseReleaseEvent(QMouseEvent *event)
 {   Q_UNUSED(event); //Предотвращает предупреждение о неиспользуемом параметре
-    Drawing = false;
+    m_bDrawing = false;
 }
 
 void PaintWindow::paintEvent(QPaintEvent *event)
 {   Q_UNUSED(event); //Предотвращает предупреждение о неиспользуемом параметре
     QPainter painter(this);
     TSegmentsList::const_iterator segmListIT;
-    constcurveIT = curve.cbegin();
-    while(constcurveIT != curve.cend())
-    { painter.setPen(constcurveIT->pen);
-      segmListIT = constcurveIT->segments.cbegin();
-      while(segmListIT != constcurveIT->segments.cend())
+    m_constcurveIT = m_curve.cbegin();
+    while(m_constcurveIT != m_curve.cend())
+    { painter.setPen(m_constcurveIT->pen);
+      segmListIT = m_constcurveIT->segments.cbegin();
+      while(segmListIT != m_constcurveIT->segments.cend())
       { painter.drawLine(segmListIT->first,segmListIT->second );
         ++segmListIT;
       }
-      ++constcurveIT;
+      ++m_constcurveIT;
     }
 }
 

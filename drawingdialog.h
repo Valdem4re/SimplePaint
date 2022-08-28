@@ -15,7 +15,7 @@ public:
     explicit DrawingDialog(QWidget *parent = 0);
     ~DrawingDialog();
   signals:
-    void setupSettings(QColor penColor, int penSize);
+    void setupSettings(QColor _penColor, int _penSize);
 
 private slots:
     void on_spinBoxR_valueChanged(int arg1);
@@ -36,8 +36,10 @@ private slots:
 
 private:
     Ui::DrawingDialog *ui;
-    int r,g,b;
-    int penSize;
+    int m_Red, m_Green, m_Blue;
+
+    int m_penSize;
+
     QColor getColor();
 };
 

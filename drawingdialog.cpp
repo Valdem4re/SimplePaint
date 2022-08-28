@@ -6,10 +6,10 @@ DrawingDialog::DrawingDialog(QWidget *parent) :
     ui(new Ui::DrawingDialog)
 {
     ui->setupUi(this);
-    r = ui->spinBoxR->value();
-    g = ui->spinBoxR->value();
-    b = ui->spinBoxR->value();
-    penSize = ui->spinBoxSize->value();
+    m_Red = ui->spinBoxR->value();
+    m_Green = ui->spinBoxR->value();
+    m_Blue = ui->spinBoxR->value();
+    m_penSize = ui->spinBoxSize->value();
 }
 
 DrawingDialog::~DrawingDialog()
@@ -17,57 +17,58 @@ DrawingDialog::~DrawingDialog()
     delete ui;
 }
 QColor DrawingDialog::getColor()
-{ return QColor(r,g,b);
+{ return QColor(m_Red, m_Green, m_Blue);
 }
 
 void DrawingDialog::on_spinBoxR_valueChanged(int arg1)
 {
-    r = arg1;
-    ui->sliderR->setValue(r);
+    m_Red = arg1;
+    ui->sliderR->setValue(m_Red);
 }
 
 void DrawingDialog::on_spinBoxB_valueChanged(int arg1)
 {
-    b = arg1;
-    ui->sliderB->setValue(b);
+    m_Green = arg1;
+    ui->sliderB->setValue(m_Blue);
 
 }
 
 void DrawingDialog::on_spinBoxG_valueChanged(int arg1)
 {
-    g = arg1;
-    ui->sliderG->setValue(g);
+    m_Green = arg1;
+    ui->sliderG->setValue(m_Green);
 
 }
 
 void DrawingDialog::on_spinBoxSize_valueChanged(int arg1)
 {
-    penSize = arg1;
+    m_penSize = arg1;
 
 }
 
 void DrawingDialog::on_pushBtnSet_clicked()
-{   QColor col = getColor();
-    emit setupSettings(col,penSize); //заказ толстого пера
+{
+    QColor col = getColor();
+    emit setupSettings(col, m_penSize); //заказ толстого пера
     if (this->isModal()) this->setHidden(true);
 }
 
 void DrawingDialog::on_sliderR_valueChanged(int value1)
 {
-    r = value1;
+    m_Red = value1;
     ui->spinBoxR->setValue(value1);
 }
 
 void DrawingDialog::on_sliderG_valueChanged(int value2)
 {
-    g = value2;
+    m_Green = value2;
     ui->spinBoxG->setValue(value2);
 }
 
 
 void DrawingDialog::on_sliderB_valueChanged(int value3)
 {
-    b = value3;
+    m_Blue = value3;
     ui->spinBoxB->setValue(value3);
 }
 

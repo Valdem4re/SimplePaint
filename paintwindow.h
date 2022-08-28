@@ -26,27 +26,42 @@ class PaintWindow : public QMainWindow
 public:
     explicit PaintWindow(QWidget *parent = 0);
     ~PaintWindow();
+
     DrawingDialog * getDrawingDialog()
-    {return drawingDialog;}
+    {return m_pDrawingDialog;}
+
+    void setConstcurveIT(const TPicture::const_iterator &_newConstcurveIT);
+
 private slots:
-    void setupSettings(QColor color, int size);
+
+    void setupSettings(QColor _color, int _size);
+
     void on_actionSave_triggered();
 
 protected:
+
      void mousePressEvent(QMouseEvent* event);
+
      void mouseMoveEvent(QMouseEvent * event);
+
      void mouseReleaseEvent(QMouseEvent *event);
+
      void paintEvent(QPaintEvent *event);
 
 private:
     Ui::PaintWindow *ui;
-    DrawingDialog * drawingDialog;
-    bool Drawing;
-    QPen linePen;
-    QPoint P0,P1;
 
-    TPicture curve;
-    TPicture::const_iterator constcurveIT;
+    DrawingDialog * m_pDrawingDialog;
+
+    bool m_bDrawing;
+
+    QPen m_linePen;
+
+    QPoint m_P0, m_P1;
+
+    TPicture m_curve;
+
+    TPicture::const_iterator m_constcurveIT;
 };
 
 #endif // MINIPAINTWINDOW_H
