@@ -226,7 +226,7 @@
          </property>
          <property name="icon">
           <iconset resource="rsc.qrc">
-           <normaloff>:/images/textures/eraser.jpg</normaloff>:/images/textures/eraser.jpg</iconset>
+           <normaloff>:/images/textures/eraser.png</normaloff>:/images/textures/eraser.png</iconset>
          </property>
          <property name="iconSize">
           <size>

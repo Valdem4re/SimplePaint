@@ -2,5 +2,6 @@
     <qresource prefix="/images">
         <file>textures/pencil.png</file>
         <file>textures/eraser.jpg</file>
+        <file>textures/eraser.png</file>
     </qresource>
 </RCC>
