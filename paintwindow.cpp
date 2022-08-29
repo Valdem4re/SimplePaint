@@ -16,11 +16,9 @@ PaintWindow::PaintWindow(QWidget *parent) :
     ui(new Ui::PaintWindow)
 {
     ui->setupUi(this);
-    m_pDrawingDialog = new DrawingDialog(this);
+
 
     this->setCursor(QCursor(QPixmap(":/images/textures/pencil.png").scaled(32,32,Qt::KeepAspectRatio)));
-
-    connect(m_pDrawingDialog,SIGNAL(setupSettings(QColor,int)),this,SLOT(setupSettings(QColor,int)));
 
     m_linePen.setColor(QColor(0,0,0));
     m_linePen.setWidth(1);
@@ -93,5 +91,24 @@ void PaintWindow::on_actionSave_triggered()
         return;
       screen.save(fileName,0,100);
 
+}
+
+void PaintWindow::on_actionColor_Settings_triggered()
+{
+    if(m_pDrawingDialog == nullptr){
+        m_pDrawingDialog = new DrawingDialog(this);
+        connect(m_pDrawingDialog,SIGNAL(setupSettings(QColor,int)),this,SLOT(setupSettings(QColor,int)));
+        connect(m_pDrawingDialog, SIGNAL(closeDrawingDialog()), this, SLOT(slotCloseDrawingDialog()));
+        m_pDrawingDialog->show();
+    }
+    else{
+        QMessageBox::warning(this,"Warning", "Color settings are already open.");
+    }
+}
+
+void PaintWindow::slotCloseDrawingDialog()
+{
+    delete m_pDrawingDialog;
+    m_pDrawingDialog = nullptr;
 }
 

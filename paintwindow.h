@@ -6,7 +6,7 @@
 #include <QPen>
 #include <QPair>
 #include <QList>
-//#include <QLinkedList>
+
 #include "drawingdialog.h"
 
 namespace Ui {
@@ -37,6 +37,10 @@ private slots:
     void setupSettings(QColor _color, int _size);
 
     void on_actionSave_triggered();
+
+    void on_actionColor_Settings_triggered();
+
+    void slotCloseDrawingDialog();
 
 protected:
 

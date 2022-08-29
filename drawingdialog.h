@@ -14,8 +14,11 @@ class DrawingDialog : public QDialog
 public:
     explicit DrawingDialog(QWidget *parent = 0);
     ~DrawingDialog();
+
   signals:
     void setupSettings(QColor _penColor, int _penSize);
+
+    void closeDrawingDialog();
 
 private slots:
     void on_spinBoxR_valueChanged(int arg1);
@@ -26,7 +29,7 @@ private slots:
 
     void on_spinBoxSize_valueChanged(int arg1);
 
-    void on_pushBtnSet_clicked();
+    //void on_pushBtnSet_clicked();
 
     void on_sliderR_valueChanged(int value1);
 
@@ -36,6 +39,8 @@ private slots:
 
     void on_pushBtnEraser_clicked(bool checked);
 
+    void on_DrawingDialog_rejected();
+
 private:
     Ui::DrawingDialog *ui;
     int m_Red, m_Green, m_Blue;
@@ -43,6 +48,8 @@ private:
     int m_penSize;
 
     QColor getColor();
+
+    void applySettings();
 };
 
 #endif // DRAWINGDIALOG_H
